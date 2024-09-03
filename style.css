@@ -18,6 +18,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
+    font-size: 1.3rem;
 }
 
 .display {
@@ -71,14 +72,17 @@ body {
 }
 
 button {
-    border: 1px solid #fff;
+    border: 1px solid #ccc;
     font: inherit;
     padding: 0.5rem 1rem;
-    width: 7rem;
+    width: 4rem;
+    height: 4rem;
     background-color: #040404;
     color: #fff;
     transition: 0.3s;
     cursor: pointer;
+    border-radius: 50%;
+    color: #ccc;
 }
 
 button:hover {
