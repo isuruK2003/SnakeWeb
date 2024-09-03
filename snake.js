@@ -179,17 +179,17 @@ resetButton.addEventListener("click", reset);
 // Key Bindings
 window.onkeydown = function (key) {
     if (isPlaying && isPaused || !isPlaying)  {
-        if (key.keyCode == 32) play();
+        if (key.keyCode == 32) play(); // Space Bar
         return;
     }
 
     if (isPlaying && !isPaused) {
         switch (key.keyCode) {
-            case 38: changeDirection("up"); break;
-            case 40: changeDirection("down"); break;
-            case 37: changeDirection("left"); break;
-            case 39: changeDirection("right"); break;
-            case 32: pause(); break;
+            case 38: changeDirection("up"); break; // Up arrow key
+            case 40: changeDirection("down"); break; // Down arrow key
+            case 37: changeDirection("left"); break; // Left arrow key
+            case 39: changeDirection("right"); break; // Right arrow key
+            case 32: pause(); break; // Space Bar
         }
     }
 };
