@@ -88,3 +88,17 @@ button:hover {
     background-color: #fff;
     color: #000;
 }
+
+.splash {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    text-align: center;
+}
+
+.splash h1 {
+    font-size: 5rem;
+}

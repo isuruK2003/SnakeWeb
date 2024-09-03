@@ -14,6 +14,18 @@ let max_score = 0;
 let isPlaying = false;
 let isPause = false;
 
+function splash(show) {
+    let display = "block";
+    display_elem.style.display = "none";
+
+    if (!show) {
+        display = "none";
+        display_elem.style.display = "grid";
+    }
+    console.log(display)
+    document.getElementById("splash").style.display = display;
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -87,13 +99,15 @@ function reset() {
     }
 
     document.getElementById("max-score").innerHTML = max_score;
+    display_elem.innerHTML = "";
+    
+    splash(true);
 
     play_button.style.display = 'block';
     pause_button.style.display = 'none';
     reset_button.style.display = 'none';
     update_score();
 }
-
 
 async function move_snake() {
     let x = 10;
@@ -172,11 +186,7 @@ window.onkeydown = function (key) {
     }
 };
 
-let play_button = document.getElementById("play");
-let pause_button = document.getElementById("pause");
-let reset_button = document.getElementById("reset");
-
-play_button.addEventListener("click", () => {
+function play() {
     if (!isPlaying) {
         isPlaying = true;
         move_snake();
@@ -186,7 +196,20 @@ play_button.addEventListener("click", () => {
     play_button.style.display = 'none';
     pause_button.style.display = 'block';
     reset_button.style.display = 'none';
+
+    splash(false);
+}
+
+
+let play_button = document.getElementById("play");
+let pause_button = document.getElementById("pause");
+let reset_button = document.getElementById("reset");
+
+
+play_button.addEventListener("click", () => {
+    play()
 });
+
 
 pause_button.addEventListener("click", () => {
     if (isPlaying && !isPause) {
@@ -197,10 +220,12 @@ pause_button.addEventListener("click", () => {
     reset_button.style.display = 'block';
 });
 
+
 reset_button.addEventListener("click", () => {
     reset();
 });
 
+
 document.addEventListener("DOMContentLoaded", () => {
-    reset();
+    reset()
 });
