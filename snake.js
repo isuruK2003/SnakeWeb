@@ -178,16 +178,18 @@ resetButton.addEventListener("click", reset);
 
 // Key Bindings
 window.onkeydown = function (key) {
-    console.log(key.keyCode);
-    if (isPlaying) {
+    if (isPlaying && isPaused || !isPlaying)  {
+        if (key.keyCode == 32) play();
+        return;
+    }
+
+    if (isPlaying && !isPaused) {
         switch (key.keyCode) {
             case 38: changeDirection("up"); break;
             case 40: changeDirection("down"); break;
             case 37: changeDirection("left"); break;
             case 39: changeDirection("right"); break;
-
-            case 32: pause(); break; // Space Bar
-            case 27: pause(); break; // Escape Button
+            case 32: pause(); break;
         }
     }
 };
