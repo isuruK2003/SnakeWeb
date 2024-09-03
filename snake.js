@@ -1,231 +1,185 @@
-const display_elem = document.getElementById("display");
-const x_max = 20;
-const y_max = 20;
+const displayElem = document.getElementById("display");
+const xMax = 20;
+const yMax = 20;
 
-let snake_body = [];
+let snakeBody = [];
 let direction = "up";
 
 let dx = 0;
 let dy = 0;
 
 let score = 0;
-let max_score = 0;
+let maxScore = 0;
 
 let isPlaying = false;
-let isPause = false;
+let isPaused = false;
+
+const playButton = document.getElementById("play");
+const pauseButton = document.getElementById("pause");
+const resetButton = document.getElementById("reset");
+
+document.addEventListener("DOMContentLoaded", reset);
+
+playButton.addEventListener("click", play);
+pauseButton.addEventListener("click", pause);
+resetButton.addEventListener("click", reset);
+
+window.onkeydown = function (key) {
+    switch (key.keyCode) {
+        case 38: changeDirection("up"); break;
+        case 40: changeDirection("down"); break;
+        case 37: changeDirection("left"); break;
+        case 39: changeDirection("right"); break;
+    }
+};
 
 function splash(show) {
-    let display = "block";
-    display_elem.style.display = "none";
-
-    if (!show) {
-        display = "none";
-        display_elem.style.display = "grid";
-    }
-    console.log(display)
+    const display = show ? "block" : "none";
     document.getElementById("splash").style.display = display;
+    displayElem.style.display = show ? "none" : "grid";
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function make_pixel(x_pos, y_pos, className = "pixel") {
-    let pixel_elem = document.createElement("div");
-    pixel_elem.className = className;
-    pixel_elem.style.gridColumn = x_pos;
-    pixel_elem.style.gridRow = y_pos;
-    display_elem.appendChild(pixel_elem);
+function createPixel(x, y, className = "pixel") {
+    const pixelElem = document.createElement("div");
+    pixelElem.className = className;
+    pixelElem.style.gridColumn = x;
+    pixelElem.style.gridRow = y;
+    displayElem.appendChild(pixelElem);
 }
 
-function update_snake(head_x, head_y) {
-    snake_body.unshift([head_x, head_y]);
-    snake_body.pop();
+function updateSnake(headX, headY) {
+    snakeBody.unshift([headX, headY]);
+    snakeBody.pop();
 }
 
-function draw_snake() {
-    snake_body.forEach(coordinate => {
-        make_pixel(coordinate[0], coordinate[1]);
-    });
+function drawSnake() {
+    snakeBody.forEach(([x, y]) => createPixel(x, y));
 }
 
-function change_direction(new_direction) {
-    const opposite_directions = {
+function changeDirection(newDirection) {
+    const oppositeDirections = {
         "up": "down",
         "down": "up",
         "left": "right",
         "right": "left"
     };
 
-    if (direction === opposite_directions[new_direction]) {
-        return;
+    if (direction !== oppositeDirections[newDirection]) {
+        direction = newDirection;
     }
-
-    direction = new_direction;
 }
 
-function place_food() {
-    let x_pos, y_pos;
+function placeFood() {
+    let x, y;
     do {
-        x_pos = Math.floor(Math.random() * x_max) + 1;
-        y_pos = Math.floor(Math.random() * y_max) + 1;
-    } while (snake_body.some(segment => segment[0] === x_pos && segment[1] === y_pos));
+        x = Math.floor(Math.random() * xMax) + 1;
+        y = Math.floor(Math.random() * yMax) + 1;
+    } while (snakeBody.some(([sx, sy]) => sx === x && sy === y));
 
-    return [x_pos, y_pos];
+    return [x, y];
 }
 
-function update_score() {
-    document.getElementById("score").innerHTML = score;
+function updateScore() {
+    document.getElementById("score").textContent = score;
 
-    if (score > max_score) {
-        max_score = score;
-        document.getElementById("max-score").innerHTML = max_score;
-        localStorage.setItem("max-score", max_score);
+    if (score > maxScore) {
+        maxScore = score;
+        document.getElementById("max-score").textContent = maxScore;
+        localStorage.setItem("max-score", maxScore);
     }
 }
 
 function reset() {
     isPlaying = false;
-    isPause = false;
-    snake_body = [];
+    isPaused = false;
+    snakeBody = [];
     score = 0;
 
-    // Initialize max_score correctly
-    let stored_max_score = localStorage.getItem("max-score");
-    if (stored_max_score) {
-        max_score = Number(stored_max_score);
-    } else {
-        max_score = 0;
-    }
+    const storedMaxScore = localStorage.getItem("max-score");
+    maxScore = storedMaxScore ? Number(storedMaxScore) : 0;
 
-    document.getElementById("max-score").innerHTML = max_score;
-    display_elem.innerHTML = "";
-    
+    document.getElementById("max-score").textContent = maxScore;
+    displayElem.innerHTML = "";
+
     splash(true);
 
-    play_button.style.display = 'block';
-    pause_button.style.display = 'none';
-    reset_button.style.display = 'none';
-    update_score();
+    playButton.style.display = 'block';
+    pauseButton.style.display = 'none';
+    resetButton.style.display = 'none';
+
+    updateScore();
 }
 
-async function move_snake() {
-    let x = 10;
-    let y = 10;
+async function moveSnake() {
+    let [x, y] = [10, 10];
     let length = 5;
-    let food = place_food();
+    let food = placeFood();
 
-    for (let i = 0; i < length; i++) {
-        snake_body.push([x, y + i]);
-    }
+    snakeBody = Array.from({ length }, (_, i) => [x, y + i]);
 
     while (isPlaying) {
-
-        if (isPause) {
+        if (isPaused) {
             await sleep(500);
             continue;
         }
 
-        if (direction === "up") {
-            dx = 0;
-            dy = -1;
-        } else if (direction === "down") {
-            dx = 0;
-            dy = 1;
-        } else if (direction === "left") {
-            dx = -1;
-            dy = 0;
-        } else if (direction === "right") {
-            dx = 1;
-            dy = 0;
+        switch (direction) {
+            case "up": [dx, dy] = [0, -1]; break;
+            case "down": [dx, dy] = [0, 1]; break;
+            case "left": [dx, dy] = [-1, 0]; break;
+            case "right": [dx, dy] = [1, 0]; break;
         }
 
-        display_elem.innerHTML = "";
+        displayElem.innerHTML = "";
 
-        x = (x + dx + x_max - 1) % x_max + 1;
-        y = (y + dy + y_max - 1) % y_max + 1;
+        x = (x + dx + xMax - 1) % xMax + 1;
+        y = (y + dy + yMax - 1) % yMax + 1;
 
-        // Snake hitting itself
-        if (snake_body.some(segment => segment[0] === x && segment[1] === y)) {
+        if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
             reset();
             alert("Game Over");
             break;
         }
 
-        // Snake eating the food
         if (x === food[0] && y === food[1]) {
-            score += 1;
-            update_score();
-            food = place_food();
-            snake_body.push(snake_body[snake_body.length - 1]); // Extend the snake
+            score++;
+            updateScore();
+            food = placeFood();
+            snakeBody.push([...snakeBody[snakeBody.length - 1]]);
         }
 
-        update_snake(x, y);
-        draw_snake();
-        make_pixel(food[0], food[1], "food");
+        updateSnake(x, y);
+        drawSnake();
+        createPixel(food[0], food[1], "food");
+
         await sleep(100);
     }
 }
 
-window.onkeydown = function (key) {
-    // up
-    if (key.keyCode === 38) {
-        change_direction("up");
-    }
-    // down
-    else if (key.keyCode === 40) {
-        change_direction("down");
-    }
-    // left
-    else if (key.keyCode === 37) {
-        change_direction("left");
-    }
-    // right
-    else if (key.keyCode === 39) {
-        change_direction("right");
-    }
-};
-
 function play() {
     if (!isPlaying) {
         isPlaying = true;
-        move_snake();
-    } else if (isPause) {
-        isPause = false;
+        moveSnake();
+    } else if (isPaused) {
+        isPaused = false;
     }
-    play_button.style.display = 'none';
-    pause_button.style.display = 'block';
-    reset_button.style.display = 'none';
+
+    playButton.style.display = 'none';
+    pauseButton.style.display = 'block';
+    resetButton.style.display = 'none';
 
     splash(false);
 }
 
-
-let play_button = document.getElementById("play");
-let pause_button = document.getElementById("pause");
-let reset_button = document.getElementById("reset");
-
-
-play_button.addEventListener("click", () => {
-    play()
-});
-
-
-pause_button.addEventListener("click", () => {
-    if (isPlaying && !isPause) {
-        isPause = true;
+function pause() {
+    if (isPlaying && !isPaused) {
+        isPaused = true;
+        playButton.style.display = 'block';
+        pauseButton.style.display = 'none';
+        resetButton.style.display = 'block';
     }
-    play_button.style.display = 'block';
-    pause_button.style.display = 'none';
-    reset_button.style.display = 'block';
-});
-
-
-reset_button.addEventListener("click", () => {
-    reset();
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    reset()
-});
+}
