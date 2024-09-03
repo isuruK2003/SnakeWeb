@@ -86,6 +86,11 @@ button:hover {
     color: #000;
 }
 
+@keyframes appear {
+    from {opacity: 0;}
+    to {opacity: 100%;}
+}
+
 .splash {
     display: flex;
     align-items: center;
@@ -94,6 +99,7 @@ button:hover {
     overflow: hidden;
     height: 100%;
     text-align: center;
+    animation: appear 2s;
 }
 
 .splash p {

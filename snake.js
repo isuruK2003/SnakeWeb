@@ -14,25 +14,6 @@ let maxScore = 0;
 let isPlaying = false;
 let isPaused = false;
 
-const playButton = document.getElementById("play");
-const pauseButton = document.getElementById("pause");
-const resetButton = document.getElementById("reset");
-
-document.addEventListener("DOMContentLoaded", reset);
-
-playButton.addEventListener("click", play);
-pauseButton.addEventListener("click", pause);
-resetButton.addEventListener("click", reset);
-
-window.onkeydown = function (key) {
-    switch (key.keyCode) {
-        case 38: changeDirection("up"); break;
-        case 40: changeDirection("down"); break;
-        case 37: changeDirection("left"); break;
-        case 39: changeDirection("right"); break;
-    }
-};
-
 function splash(show) {
     const display = show ? "block" : "none";
     document.getElementById("splash").style.display = display;
@@ -183,3 +164,32 @@ function pause() {
         resetButton.style.display = 'block';
     }
 }
+
+// Script Runs:
+// ```````````
+
+const playButton = document.getElementById("play");
+const pauseButton = document.getElementById("pause");
+const resetButton = document.getElementById("reset");
+
+playButton.addEventListener("click", play);
+pauseButton.addEventListener("click", pause);
+resetButton.addEventListener("click", reset);
+
+// Key Bindings
+window.onkeydown = function (key) {
+    console.log(key.keyCode);
+    if (isPlaying) {
+        switch (key.keyCode) {
+            case 38: changeDirection("up"); break;
+            case 40: changeDirection("down"); break;
+            case 37: changeDirection("left"); break;
+            case 39: changeDirection("right"); break;
+
+            case 32: pause(); break; // Space Bar
+            case 27: pause(); break; // Escape Button
+        }
+    }
+};
+
+document.addEventListener("DOMContentLoaded", reset);
