@@ -20,6 +20,12 @@ function splash(show) {
     displayElem.style.display = show ? "none" : "grid";
 }
 
+function gameOverScreen(show) {
+    const display = show ? "block" : "none";
+    document.getElementById("game-over").style.display = display;
+    displayElem.style.display = show ? "none" : "grid";
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -103,6 +109,7 @@ async function moveSnake() {
     snakeBody = Array.from({ length }, (_, i) => [x, y + i]);
 
     while (isPlaying) {
+
         if (isPaused) {
             await sleep(500);
             continue;
@@ -120,9 +127,12 @@ async function moveSnake() {
         x = (x + dx + xMax - 1) % xMax + 1;
         y = (y + dy + yMax - 1) % yMax + 1;
 
+        // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
+            gameOverScreen(true);
+            await sleep(3500);
+            gameOverScreen(false)
             reset();
-            alert("Game Over");
             break;
         }
 
@@ -178,8 +188,10 @@ resetButton.addEventListener("click", reset);
 
 // Key Bindings
 window.onkeydown = function (key) {
+    console.log(key.keyCode);
     if (isPlaying && isPaused || !isPlaying)  {
         if (key.keyCode == 32) play(); // Space Bar
+        if (key.keyCode == 82) reset(); // "R" key
         return;
     }
 

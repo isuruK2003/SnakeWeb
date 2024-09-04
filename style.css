@@ -4,6 +4,15 @@ body {
     font-size: 1.2rem;
 }
 
+button {
+    border: none;
+    font: inherit;
+    background-color: inherit;
+    color: inherit;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
 .container {
     margin: 0 auto;
     width: 450px;
@@ -19,6 +28,17 @@ body {
     justify-content: space-between;
     padding: 1rem;
     font-size: 1.3rem;
+}
+
+.score-board button#menu-button {
+    margin-left: 1rem;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.score-board button:hover {
+    background-color: #333;
 }
 
 .display {
@@ -39,7 +59,6 @@ body {
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    /* border-radius: 3px; */
 }
 
 .food {
@@ -71,26 +90,24 @@ body {
     overflow: hidden;
 }
 
-button {
+/* Control Butons */
+
+.button-board button {
     border: 1px solid #ccc;
-    font: inherit;
     padding: 0.5rem 1rem;
     width: 4rem;
     height: 4rem;
-    background-color: #040404;
-    color: #fff;
-    transition: 0.3s;
-    cursor: pointer;
     border-radius: 50%;
-    color: #ccc;
 }
 
-button:hover {
+.button-board button:hover {
     background-color: #fff;
     color: #000;
 }
 
-.splash {
+/* Splash Screen */
+
+.splash, .game-over {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,11 +118,21 @@ button:hover {
     animation: appear 2s;
 }
 
-.splash p {
+.splash p, .game-over p {
     font-size: 5rem;
+}
+
+.game-over {
+    animation: blink 0.8s ease-in-out 0s 3;
 }
 
 @keyframes appear {
     from {opacity: 0;}
     to {opacity: 100%;}
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
 }
