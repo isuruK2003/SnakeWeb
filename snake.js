@@ -20,10 +20,14 @@ function splash(show) {
     displayElem.style.display = show ? "none" : "grid";
 }
 
-function gameOverScreen(show) {
-    const display = show ? "block" : "none";
-    document.getElementById("game-over").style.display = display;
-    displayElem.style.display = show ? "none" : "grid";
+async function gameOverScreen() {
+    const gameOverElem = document.getElementById("game-over");
+    gameOverElem.style.display = "block";
+    displayElem.style.display = "none";
+    await sleep(800);
+    gameOverElem.style.display = "none";
+    displayElem.style.display = "block";
+    
 }
 
 function sleep(ms) {
@@ -129,9 +133,7 @@ async function moveSnake() {
 
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
-            gameOverScreen(true);
-            await sleep(3500);
-            gameOverScreen(false)
+            await gameOverScreen();
             reset();
             break;
         }
