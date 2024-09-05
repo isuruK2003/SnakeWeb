@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Handjet">
     <title>Snake</title>
 </head>
 <body>
     <div class="container">
         <div class="score-board">
-            <div class="score-container">
-                <span>Score: </span>
-                <span id="score"><!-- score --></span>
-            </div>
-            <div class="max-score-container">
+            <div>
                 <span>
                     <span>Max Score: </span>
                     <span id="max-score">0</span>
                 </span>
             </div>
+            <div>
+                <span>Score: </span>
+                <span id="score"><!-- score --></span>
+            </div>
+            <div>
+                <button id="menu-button">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
         </div>
-
+        
         <div class="border">
             <div id="splash" class="splash">
                 <p>Snake</p>
@@ -33,7 +37,7 @@
                 <!-- <div id="p_1_1" class="pixel"></div> -->
             </div>
         </div>
-    
+        
         <div class="button-board">
             <button id="play" class="button">
                 <i class="fa-solid fa-play"></i>
@@ -49,5 +53,6 @@
     </div>
     <script src="snake.js"></script>
     <script src="https://kit.fontawesome.com/5e41dcec9e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Handjet">
 </body>
 </html>

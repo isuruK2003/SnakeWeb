@@ -20,14 +20,9 @@ function splash(show) {
     displayElem.style.display = show ? "none" : "grid";
 }
 
-async function gameOverScreen() {
-    const gameOverElem = document.getElementById("game-over");
-    gameOverElem.style.display = "block";
-    displayElem.style.display = "none";
-    await sleep(800);
-    gameOverElem.style.display = "none";
-    displayElem.style.display = "block";
-    
+function gameOverScreen(show) {
+    document.getElementById("game-over").style.display = show ? "block" : "none";
+    displayElem.style.display = show ? "none" : "grid";
 }
 
 function sleep(ms) {
@@ -105,6 +100,10 @@ function reset() {
     updateScore();
 }
 
+function resetMaxScore() {
+    localStorage.setItem("max-score", 0);
+}
+
 async function moveSnake() {
     let [x, y] = [10, 10];
     let length = 5;
@@ -133,7 +132,9 @@ async function moveSnake() {
 
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
-            await gameOverScreen();
+            gameOverScreen(true);
+            await sleep(3500);
+            gameOverScreen(false)
             reset();
             break;
         }
@@ -178,7 +179,7 @@ function pause() {
 }
 
 // Script Runs:
-// ```````````
+// ````````````
 
 const playButton = document.getElementById("play");
 const pauseButton = document.getElementById("pause");
@@ -190,7 +191,6 @@ resetButton.addEventListener("click", reset);
 
 // Key Bindings
 window.onkeydown = function (key) {
-    console.log(key.keyCode);
     if (isPlaying && isPaused || !isPlaying)  {
         if (key.keyCode == 32) play(); // Space Bar
         if (key.keyCode == 82) reset(); // "R" key
