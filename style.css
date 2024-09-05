@@ -105,9 +105,10 @@ button {
     color: #000;
 }
 
-/* Splash Screen */
+/* Screens */
 
-.splash, .game-over {
+.splash,
+.game-over {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,13 +119,19 @@ button {
     animation: appear 2s;
 }
 
+/* Splash Screen */
+
 .splash p, .game-over p {
     font-size: 5rem;
 }
 
+/* Game Over Screen */
+
 .game-over {
     animation: blink 0.8s ease-in-out 0s 3;
 }
+
+/* Animations */
 
 @keyframes appear {
     from {opacity: 0;}
@@ -136,3 +143,4 @@ button {
     50% { opacity: 0; }
     100% { opacity: 1; }
 }
+
