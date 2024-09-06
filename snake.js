@@ -120,7 +120,7 @@ async function moveSnake() {
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
             initializeGameOverScreen();
-            await sleep(3500);
+            await sleep(3100);
             reset();
             break;
         }
