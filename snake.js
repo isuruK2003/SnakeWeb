@@ -1,4 +1,4 @@
-const displayElem = document.getElementById("display");
+const displayContainerElem = document.getElementById("display-container");
 const xMax = 20;
 const yMax = 20;
 
@@ -14,15 +14,28 @@ let maxScore = 0;
 let isPlaying = false;
 let isPaused = false;
 
-function splash(show) {
-    const display = show ? "block" : "none";
-    document.getElementById("splash").style.display = display;
-    displayElem.style.display = show ? "none" : "grid";
+function splash() {
+    displayContainerElem.innerHTML = '';
+    displayContainerElem.innerHTML = `
+    <div id="splash" class="splash">
+        <p>Snake</p>
+    </div>
+    `;
 }
 
-function gameOverScreen(show) {
-    document.getElementById("game-over").style.display = show ? "block" : "none";
-    displayElem.style.display = show ? "none" : "grid";
+function gameOverScreen() {
+    displayContainerElem.innerHTML = '';
+    displayContainerElem.innerHTML = `
+    <div id="game-over" class="game-over">
+        <p>Game Over!</p>
+    </div>
+    `;
+}
+
+function initializeDisplay() {
+    displayContainerElem.innerHTML = '';
+    displayContainerElem.innerHTML = `
+    <div id="display" class="display"></div>`;
 }
 
 function sleep(ms) {
@@ -31,6 +44,7 @@ function sleep(ms) {
 
 function createPixel(x, y, className = "pixel") {
     const pixelElem = document.createElement("div");
+    const displayElem = document.getElementById("display");
     pixelElem.className = className;
     pixelElem.style.gridColumn = x;
     pixelElem.style.gridRow = y;
@@ -89,9 +103,8 @@ function reset() {
     maxScore = storedMaxScore ? Number(storedMaxScore) : 0;
 
     document.getElementById("max-score").textContent = maxScore;
-    displayElem.innerHTML = "";
 
-    splash(true);
+    splash();
 
     playButton.style.display = 'block';
     pauseButton.style.display = 'none';
@@ -105,6 +118,8 @@ function resetMaxScore() {
 }
 
 async function moveSnake() {
+    const displayElem = document.getElementById("display");
+
     let [x, y] = [10, 10];
     let length = 5;
     let food = placeFood();
@@ -134,7 +149,6 @@ async function moveSnake() {
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
             gameOverScreen(true);
             await sleep(3500);
-            gameOverScreen(false)
             reset();
             break;
         }
@@ -155,6 +169,8 @@ async function moveSnake() {
 }
 
 function play() {
+    initializeDisplay();
+
     if (!isPlaying) {
         isPlaying = true;
         moveSnake();
@@ -166,7 +182,6 @@ function play() {
     pauseButton.style.display = 'block';
     resetButton.style.display = 'none';
 
-    splash(false);
 }
 
 function pause() {
