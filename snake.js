@@ -14,7 +14,9 @@ let maxScore = 0;
 let isPlaying = false;
 let isPaused = false;
 
-function splash() {
+// Display Initializers
+
+function initializeSplash() {
     displayContainerElem.innerHTML = '';
     displayContainerElem.innerHTML = `
     <div id="splash" class="splash">
@@ -23,7 +25,7 @@ function splash() {
     `;
 }
 
-function gameOverScreen() {
+function initializeGameOverScreen() {
     displayContainerElem.innerHTML = '';
     displayContainerElem.innerHTML = `
     <div id="game-over" class="game-over">
@@ -32,15 +34,15 @@ function gameOverScreen() {
     `;
 }
 
-function initializeDisplay() {
+function initializeGameScreen() {
     displayContainerElem.innerHTML = '';
     displayContainerElem.innerHTML = `
-    <div id="display" class="display"></div>`;
+    <div id="display" class="display">
+    </div>`;
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+
+
 
 function createPixel(x, y, className = "pixel") {
     const pixelElem = document.createElement("div");
@@ -60,6 +62,20 @@ function drawSnake() {
     snakeBody.forEach(([x, y]) => createPixel(x, y));
 }
 
+function placeFood() {
+    let x, y;
+    do {
+        x = Math.floor(Math.random() * xMax) + 1;
+        y = Math.floor(Math.random() * yMax) + 1;
+    } while (snakeBody.some(([sx, sy]) => sx === x && sy === y));
+
+    return [x, y];
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function changeDirection(newDirection) {
     const oppositeDirections = {
         "up": "down",
@@ -71,50 +87,6 @@ function changeDirection(newDirection) {
     if (direction !== oppositeDirections[newDirection]) {
         direction = newDirection;
     }
-}
-
-function placeFood() {
-    let x, y;
-    do {
-        x = Math.floor(Math.random() * xMax) + 1;
-        y = Math.floor(Math.random() * yMax) + 1;
-    } while (snakeBody.some(([sx, sy]) => sx === x && sy === y));
-
-    return [x, y];
-}
-
-function updateScore() {
-    document.getElementById("score").textContent = score;
-
-    if (score > maxScore) {
-        maxScore = score;
-        document.getElementById("max-score").textContent = maxScore;
-        localStorage.setItem("max-score", maxScore);
-    }
-}
-
-function reset() {
-    isPlaying = false;
-    isPaused = false;
-    snakeBody = [];
-    score = 0;
-
-    const storedMaxScore = localStorage.getItem("max-score");
-    maxScore = storedMaxScore ? Number(storedMaxScore) : 0;
-
-    document.getElementById("max-score").textContent = maxScore;
-
-    splash();
-
-    playButton.style.display = 'block';
-    pauseButton.style.display = 'none';
-    resetButton.style.display = 'none';
-
-    updateScore();
-}
-
-function resetMaxScore() {
-    localStorage.setItem("max-score", 0);
 }
 
 async function moveSnake() {
@@ -147,7 +119,7 @@ async function moveSnake() {
 
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
-            gameOverScreen(true);
+            initializeGameOverScreen();
             await sleep(3500);
             reset();
             break;
@@ -168,8 +140,11 @@ async function moveSnake() {
     }
 }
 
+
+
+
 function play() {
-    initializeDisplay();
+    initializeGameScreen();
 
     if (!isPlaying) {
         isPlaying = true;
@@ -192,6 +167,50 @@ function pause() {
         resetButton.style.display = 'block';
     }
 }
+
+function reset() {
+    isPlaying = false;
+    isPaused = false;
+    snakeBody = [];
+    score = 0;
+
+    const storedMaxScore = localStorage.getItem("max-score");
+    maxScore = storedMaxScore ? Number(storedMaxScore) : 0;
+
+    document.getElementById("max-score").textContent = maxScore;
+
+    initializeSplash();
+
+    playButton.style.display = 'block';
+    pauseButton.style.display = 'none';
+    resetButton.style.display = 'none';
+
+    updateScore();
+}
+
+
+
+
+// Score Managers
+
+function resetMaxScore() {
+    // Not under usage
+    localStorage.setItem("max-score", 0);
+}
+
+
+function updateScore() {
+    document.getElementById("score").textContent = score;
+
+    if (score > maxScore) {
+        maxScore = score;
+        document.getElementById("max-score").textContent = maxScore;
+        localStorage.setItem("max-score", maxScore);
+    }
+}
+
+
+
 
 // Script Runs:
 // ````````````
