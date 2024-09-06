@@ -41,9 +41,6 @@ function initializeGameScreen() {
     </div>`;
 }
 
-
-
-
 function createPixel(x, y, className = "pixel") {
     const pixelElem = document.createElement("div");
     const displayElem = document.getElementById("display");
@@ -119,6 +116,7 @@ async function moveSnake() {
 
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
+            reset()
             initializeGameOverScreen();
             await sleep(3100);
             reset();
@@ -140,14 +138,10 @@ async function moveSnake() {
     }
 }
 
-
-
-
 function play() {
-    initializeGameScreen();
-
     if (!isPlaying) {
         isPlaying = true;
+        initializeGameScreen();
         moveSnake();
     } else if (isPaused) {
         isPaused = false;
@@ -188,9 +182,6 @@ function reset() {
     updateScore();
 }
 
-
-
-
 // Score Managers
 
 function resetMaxScore() {
@@ -208,9 +199,6 @@ function updateScore() {
         localStorage.setItem("max-score", maxScore);
     }
 }
-
-
-
 
 // Script Runs:
 // ````````````
