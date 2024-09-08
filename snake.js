@@ -37,13 +37,13 @@ function initializeGameOverScreen() {
 function initializeGameScreen() {
     displayContainerElem.innerHTML = '';
     displayContainerElem.innerHTML = `
-    <div id="display" class="display">
+    <div id="game-display" class="game-display">
     </div>`;
 }
 
 function createPixel(x, y, className = "pixel") {
     const pixelElem = document.createElement("div");
-    const displayElem = document.getElementById("display");
+    const displayElem = document.getElementById("game-display");
     pixelElem.className = className;
     pixelElem.style.gridColumn = x;
     pixelElem.style.gridRow = y;
@@ -87,7 +87,7 @@ function changeDirection(newDirection) {
 }
 
 async function moveSnake() {
-    const displayElem = document.getElementById("display");
+    const displayElem = document.getElementById("game-display");
 
     let [x, y] = [10, 10];
     let length = 5;

@@ -41,7 +41,7 @@ button {
     background-color: #333;
 }
 
-.game-screen {
+.game-display {
     display: grid;
     grid-template-columns: repeat(20, 1fr);
     grid-template-rows: repeat(20, 1fr);
