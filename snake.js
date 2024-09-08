@@ -14,10 +14,21 @@ let maxScore = 0;
 let isPlaying = false;
 let isPaused = false;
 
+let currentScreen = "splash";
+let previousScreen = "splash";
+let screenInitializers = {
+    "splash":initializeSplash,
+    "game-over":initializeGameOverScreen,
+    "game-screen":initializeGameScreen,
+    "settings-screen":initializeSettingsScreen,
+}
+
 // Display Initializers
 
 function initializeSplash() {
-    displayContainerElem.innerHTML = '';
+    previousScreen = currentScreen;
+    currentScreen = "splash";
+
     displayContainerElem.innerHTML = `
     <div id="splash" class="splash">
         <p>Snake</p>
@@ -26,7 +37,9 @@ function initializeSplash() {
 }
 
 function initializeGameOverScreen() {
-    displayContainerElem.innerHTML = '';
+    previousScreen = currentScreen;
+    currentScreen = "game-over";
+    
     displayContainerElem.innerHTML = `
     <div id="game-over" class="game-over">
         <p>Game Over!</p>
@@ -35,15 +48,51 @@ function initializeGameOverScreen() {
 }
 
 function initializeGameScreen() {
-    displayContainerElem.innerHTML = '';
+    previousScreen = currentScreen;
+    currentScreen = "game-screen";
+
     displayContainerElem.innerHTML = `
-    <div id="display" class="display">
+    <div id="game-screen" class="game-screen">
     </div>`;
+}
+
+function initializeSettingsScreen() {
+    currentScreen = "settings-screen";
+
+    displayContainerElem.innerHTML = `
+    <div class="settings">
+        <h1>Settings</h1>
+        <div class="settings-list">
+            <div class="settings-row">
+                <span>Background Color</span>
+                <input id="background-color" type="color" value="#67a467">
+            </div>
+            <div class="settings-row">
+                <span>Snake Color</span>
+                <input id="snake-color" type="color" value="#075700">
+            </div>
+            <div class="settings-row">
+                <span>Grid Row Count</span>
+                <input type="number" value="20" min="10" max="50">
+            </div>
+            <div class="settings-row">
+                <span>Grid Column Count</span>
+                <input type="number" value="20" min="10" max="50">
+            </div>
+            <div class="settings-row">
+                <button id="reset-max-score">Reset Max Score</button>
+            </div>
+            <div class="settings-row">
+                <button id="reset-settings">Reset Settings</button>
+            </div>
+        </div>
+    </div>
+    `
 }
 
 function createPixel(x, y, className = "pixel") {
     const pixelElem = document.createElement("div");
-    const displayElem = document.getElementById("display");
+    const displayElem = document.getElementById("game-screen");
     pixelElem.className = className;
     pixelElem.style.gridColumn = x;
     pixelElem.style.gridRow = y;
@@ -87,7 +136,7 @@ function changeDirection(newDirection) {
 }
 
 async function moveSnake() {
-    const displayElem = document.getElementById("display");
+    const displayElem = document.getElementById("game-screen");
 
     let [x, y] = [10, 10];
     let length = 5;
@@ -200,16 +249,34 @@ function updateScore() {
     }
 }
 
+function displaySettings() {
+    if (currentScreen == "settings-screen"&& isPaused) {
+        play();
+    }
+
+    if (isPlaying) {
+        pause();
+    }
+
+    if (currentScreen == "settings-screen") {
+        screenInitializers[previousScreen]();
+    } else {
+        initializeSettingsScreen()
+    }
+}
+
 // Script Runs:
 // ````````````
 
 const playButton = document.getElementById("play");
 const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
+const settingsButton = document.getElementById("settings-button");
 
 playButton.addEventListener("click", play);
 pauseButton.addEventListener("click", pause);
 resetButton.addEventListener("click", reset);
+settingsButton.addEventListener("click", displaySettings);
 
 // Key Bindings
 window.onkeydown = function (key) {

@@ -30,7 +30,7 @@ button {
     font-size: 1.3rem;
 }
 
-.score-board button#menu-button {
+.score-board button {
     margin-left: 1rem;
     border-radius: 50%;
     width: 2.5rem;
@@ -41,11 +41,11 @@ button {
     background-color: #333;
 }
 
-.display {
+.game-screen {
     display: grid;
     grid-template-columns: repeat(20, 1fr);
     grid-template-rows: repeat(20, 1fr);
-    background-color: rgba(103, 164, 103, 0.77);
+    background-color: #67a467c4;
     border: 1px solid #3bb230;
     box-sizing: border-box;
     width: 100%;
@@ -144,3 +144,68 @@ button {
     100% { opacity: 1; }
 }
 
+/* Settings */
+
+.settings {
+    border: 1px solid #333;
+    height: 100%;
+}
+
+.settings h1 {
+    text-align: center;
+}
+
+.settings-list {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 4px;
+}
+
+.settings button {
+    background-color: #000;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.settings button:hover {
+    background-color: #333;
+}
+
+input[type="color"] {
+    width: 32px;
+    height: 32px;
+    background-color: inherit;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+    background-color: inherit;
+    border: none;
+    border-bottom: 3px solid #eee;
+    height: 32px;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #000;
+}
