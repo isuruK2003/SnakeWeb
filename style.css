@@ -202,6 +202,7 @@ input[type="number"] {
     font: inherit;
     color: inherit;
     text-align: center;
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
