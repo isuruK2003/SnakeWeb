@@ -211,8 +211,8 @@ function toggleSettings() {
     }
 }
 
-// Script Runs:
-// ````````````
+// Key Bindings and Event Listners
+// ```````````````````````````````
 
 const playButton = document.getElementById("play");
 const pauseButton = document.getElementById("pause");
