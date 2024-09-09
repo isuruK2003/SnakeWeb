@@ -189,7 +189,6 @@ function resetMaxScore() {
     localStorage.setItem("max-score", 0);
 }
 
-
 function updateScore() {
     document.getElementById("score").textContent = score;
 
@@ -200,22 +199,39 @@ function updateScore() {
     }
 }
 
+function toggleSettings() {
+    let settingsElem = document.getElementById("settings");
+
+    if (settingsElem.style.display == "none") {
+        settingsElem.style.display = "block";
+        displayContainerElem.style.display = "none";
+    } else {
+        settingsElem.style.display = "none";
+        displayContainerElem.style.display = "block";
+    }
+}
+
 // Script Runs:
 // ````````````
 
 const playButton = document.getElementById("play");
 const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
+const settingsButton = document.getElementById("settings-button");
 
 playButton.addEventListener("click", play);
 pauseButton.addEventListener("click", pause);
 resetButton.addEventListener("click", reset);
+settingsButton.addEventListener("click", toggleSettings)
 
 // Key Bindings
 window.onkeydown = function (key) {
+    
     if (isPlaying && isPaused || !isPlaying)  {
+        console.log(key.keyCode)
         if (key.keyCode == 32) play(); // Space Bar
         if (key.keyCode == 82) reset(); // "R" key
+        if (key.keyCode == 83) toggleSettings(); // "S" key
         return;
     }
 

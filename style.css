@@ -147,8 +147,10 @@ button {
 /* Settings */
 
 .settings {
+    display: none;
     border: 1px solid #333;
-    height: 100%;
+    background-color: #4c7548;
+    height:  400px;
 }
 
 .settings h1 {
