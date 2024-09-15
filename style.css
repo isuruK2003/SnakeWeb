@@ -1,3 +1,5 @@
+/* Global Element Variables */
+
 body {
     background-color: rgb(46, 46, 46);
     font-family: 'Handjet';
@@ -13,6 +15,42 @@ button {
     cursor: pointer;
 }
 
+input[type="color"] {
+    width: 32px;
+    height: 32px;
+    background-color: inherit;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+    background-color: inherit;
+    border: none;
+    border-bottom: 3px solid #eee;
+    height: 32px;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #000;
+}
+
+
+/* Container */
+/* Holds the settings screen, splash, and game display (dynamically adds) */
+
 .container {
     margin: 0 auto;
     width: 450px;
@@ -21,6 +59,8 @@ button {
     background-color: #000;
     color: #fff;
 }
+
+/* Score Board */
 
 .score-board {
     display: flex;
@@ -41,6 +81,8 @@ button {
     background-color: #333;
 }
 
+/* Game Pixel Grid */
+
 .game-display {
     display: grid;
     grid-template-columns: repeat(20, 1fr);
@@ -53,6 +95,8 @@ button {
     box-shadow: inset 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* A pixel in the pixel grid */
+
 .pixel {
     background-color: #075700;
     border: 1px solid #4c7548;
@@ -61,12 +105,16 @@ button {
     width: 100%;
 }
 
+/* A food pixel in the pixel grid */
+
 .food {
     background-color: #86420a;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
 }
+
+/* A display container that holds splash screen and the game display */
 
 .display-container {
     padding: 12px;
@@ -90,7 +138,7 @@ button {
     overflow: hidden;
 }
 
-/* Control Butons */
+/* Control Butons: Play, Pause, and Replay  */
 
 .button-board button {
     border: 1px solid #ccc;
@@ -144,17 +192,13 @@ button {
     100% { opacity: 1; }
 }
 
-/* Settings */
+/* Settings Screen */
 
 .settings {
     display: none;
     border: 1px solid #333;
     background-color: #4c7548;
     height:  400px;
-}
-
-.settings h1 {
-    text-align: center;
 }
 
 .settings-list {
@@ -171,6 +215,10 @@ button {
     margin: 16px 4px;
 }
 
+.settings h1 {
+    text-align: center;
+}
+
 .settings button {
     background-color: #000;
     padding: 8px;
@@ -179,36 +227,4 @@ button {
 
 .settings button:hover {
     background-color: #333;
-}
-
-input[type="color"] {
-    width: 32px;
-    height: 32px;
-    background-color: inherit;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-    background-color: inherit;
-    border: none;
-    border-bottom: 3px solid #eee;
-    height: 32px;
-    font: inherit;
-    color: inherit;
-    text-align: center;
-    appearance: textfield;
-    -moz-appearance: textfield;
-}
-
-input[type="number"]:focus {
-    outline: none;
-    border-color: #000;
 }

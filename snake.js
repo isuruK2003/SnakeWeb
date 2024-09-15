@@ -187,6 +187,8 @@ function reset() {
 function resetMaxScore() {
     // Not under usage
     localStorage.setItem("max-score", 0);
+    maxScore = 0;
+    document.getElementById("max-score").innerHTML = maxScore;
 }
 
 function updateScore() {
@@ -218,11 +220,13 @@ const playButton = document.getElementById("play");
 const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
 const settingsButton = document.getElementById("settings-button");
+const resetMaxScoreButton = document.getElementById("reset-max-score");
 
 playButton.addEventListener("click", play);
 pauseButton.addEventListener("click", pause);
 resetButton.addEventListener("click", reset);
-settingsButton.addEventListener("click", toggleSettings)
+settingsButton.addEventListener("click", toggleSettings);
+resetMaxScoreButton.addEventListener("click", resetMaxScore);
 
 // Key Bindings
 window.onkeydown = function (key) {
