@@ -1,71 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Snake</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="score-board">
-            <div>
-                <span>
-                    <span>Max Score: </span>
-                    <span id="max-score">0</span>
-                </span>
+    <div class="app">
+        <div class="container">
+            <div class="score-board">
+                <div>
+                    <span>
+                        <span>Max Score: </span>
+                        <span id="max-score">0</span>
+                    </span>
+                </div>
+                <div>
+                    <span>Score: </span>
+                    <span id="score"><!-- score --></span>
+                </div>
+                <div>
+                    <button id="settings-button">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
             </div>
-            <div>
-                <span>Score: </span>
-                <span id="score"><!-- score --></span>
+
+            <div id="settings" class="settings">
+                <h1>Settings</h1>
+                <div class="settings-list">
+                    <div class="settings-row">
+                        <span>Background Color</span>
+                        <input type="color" name="back-color" id="back-color">
+                    </div>
+                    <div class="settings-row">
+                        <span>Forground Color</span>
+                        <input type="color" name="fore-color" id="fore-color">
+                    </div>
+                    <div class="settings-row">
+                        <button id="reset-max-score">Reset Max Score</button>
+                    </div>
+                </div>
             </div>
-            <div>
-                <button id="settings-button">
-                    <i class="fa-solid fa-gear"></i>
+
+            <div id="display-container" class="display-container">
+                <!-- Splash screen -->
+
+                <!-- Game Over Screen -->
+
+                <!-- Pixel grid-->
+            </div>
+
+            <div class="button-board">
+                <button id="play" class="button">
+                    <i class="fa-solid fa-play"></i>
+                    <!-- <span>&#11208;</span> -->
+                </button>
+                <button id="pause" class="button" style="display: none;">
+                    <i class="fa-solid fa-pause"></i>
+                </button>
+                <button id="reset" class="button" style="display: none;">
+                    <i class="fa-solid fa-rotate-right"></i>
                 </button>
             </div>
-        </div>
-        
-        <div id="settings" class="settings">
-            <h1>Settings</h1>
-            <div class="settings-list">
-                <div class="settings-row">
-                    <span>Background Color</span>
-                    <input type="color" name="back-color" id="back-color">
-                </div>
-                <div class="settings-row">
-                    <span>Forground Color</span>
-                    <input type="color" name="fore-color" id="fore-color">
-                </div>
-                <div class="settings-row">
-                    <button id="reset-max-score">Reset Max Score</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="display-container" class="display-container">
-            <!-- Splash screen -->
-
-            <!-- Game Over Screen -->
-
-            <!-- Pixel grid-->
-        </div>
-        
-        <div class="button-board">
-            <button id="play" class="button">
-                <i class="fa-solid fa-play"></i>
-                <!-- <span>&#11208;</span> -->
-            </button>
-            <button id="pause" class="button" style="display: none;">
-                <i class="fa-solid fa-pause"></i>
-            </button>
-            <button id="reset" class="button" style="display: none;">
-                <i class="fa-solid fa-rotate-right"></i>
-            </button>
         </div>
     </div>
     <script src="snake.js"></script>
     <script src="https://kit.fontawesome.com/5e41dcec9e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Handjet">
 </body>
+
 </html>
