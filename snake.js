@@ -29,8 +29,9 @@ function initializeGameOverScreen() {
     displayContainerElem.innerHTML = '';
     displayContainerElem.innerHTML = `
     <div id="game-over" class="game-over">
-        <p>Game Over!</p>
-        <p>${score}</p>
+        <div class="game-over-title">Game Over!</div>
+        <div>Score: ${score}</div>
+        <div>Max Score: ${maxScore}</div>
     </div>
     `;
 }
@@ -118,9 +119,8 @@ async function moveSnake() {
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
             initializeGameOverScreen();
-            reset()
             await sleep(3100);
-            reset();
+            reset()
             break;
         }
 
@@ -163,11 +163,11 @@ function pause() {
     }
 }
 
-function reset(resetScore=true) {
+function reset() {
     isPlaying = false;
     isPaused = false;
     snakeBody = [];
-    score = reset? 0: score;
+    score = 0;
 
     const storedMaxScore = localStorage.getItem("max-score");
     maxScore = storedMaxScore ? Number(storedMaxScore) : 0;
@@ -239,7 +239,6 @@ resetMaxScoreButton.addEventListener("click", resetMaxScore);
 window.onkeydown = function (key) {
 
     if (isPlaying && isPaused || !isPlaying) {
-        console.log(key.keyCode)
         if (key.keyCode == 32) play(); // Space Bar
         if (key.keyCode == 82) reset(); // "R" key
         if (key.keyCode == 83) toggleSettings(); // "S" key

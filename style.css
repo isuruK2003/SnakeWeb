@@ -55,6 +55,7 @@ input[type="number"]:focus {
     justify-content: center;
     height: 100vh;
     box-sizing: border-box;
+    user-select: none;
 }
 
 /* Container */
@@ -179,16 +180,20 @@ input[type="number"]:focus {
 
 /* Splash Screen */
 
-.splash p,
-.game-over p {
+.splash p {
     font-size: 5rem;
 }
 
 /* Game Over Screen */
 
 .game-over {
-    animation: blink 0.8s ease-in-out 0s 3;
+    animation: blink 0.6s ease-in-out 0s 3;
 }
+
+.game-over-title {
+    font-size: 3rem;
+}
+
 
 /* Animations */
 
