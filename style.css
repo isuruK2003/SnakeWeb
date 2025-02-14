@@ -2,7 +2,7 @@
 
 body {
     background-color: rgb(46, 46, 46);
-    font-family: 'Handjet';
+    font-family: 'Genos';
     font-size: 1.2rem;
     margin: 0;
 }
@@ -150,16 +150,17 @@ input[type="number"]:focus {
 /* Control Butons: Play, Pause, and Replay  */
 
 .button-board button {
-    border: 1px solid #ccc;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    /* box-shadow: 0 0 4px 1px ; */
     padding: 0.5rem 1rem;
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
+    font-size: 1.2rem;
 }
 
 .button-board button:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #333;
 }
 
 /* Screens */

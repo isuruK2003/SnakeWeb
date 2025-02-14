@@ -30,6 +30,7 @@ function initializeGameOverScreen() {
     displayContainerElem.innerHTML = `
     <div id="game-over" class="game-over">
         <p>Game Over!</p>
+        <p>${score}</p>
     </div>
     `;
 }
@@ -116,8 +117,8 @@ async function moveSnake() {
 
         // Game Over
         if (snakeBody.some(([sx, sy]) => sx === x && sy === y)) {
-            reset()
             initializeGameOverScreen();
+            reset()
             await sleep(3100);
             reset();
             break;
@@ -162,11 +163,11 @@ function pause() {
     }
 }
 
-function reset() {
+function reset(resetScore=true) {
     isPlaying = false;
     isPaused = false;
     snakeBody = [];
-    score = 0;
+    score = reset? 0: score;
 
     const storedMaxScore = localStorage.getItem("max-score");
     maxScore = storedMaxScore ? Number(storedMaxScore) : 0;

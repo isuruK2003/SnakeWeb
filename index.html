@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Handjet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Genos">
         <title>Snake</title>
     </head>
     
@@ -21,11 +21,13 @@
                     </div>
                     <div>
                         <span>Score: </span>
-                        <span id="score"><!-- score --></span>
+                        <span id="score">
+                            <!-- score -->
+                        </span>
                     </div>
                     <div>
                         <button id="settings-button">
-                            <i class="fa-solid fa-gear"></i>
+                            <span>&#9881;</span>
                         </button>
                 </div>
             </div>
@@ -34,15 +36,8 @@
                 <h1>Settings</h1>
                 <div class="settings-list">
                     <div class="settings-row">
-                        <span>Background Color</span>
-                        <input type="color" name="back-color" id="back-color">
-                    </div>
-                    <div class="settings-row">
-                        <span>Forground Color</span>
-                        <input type="color" name="fore-color" id="fore-color">
-                    </div>
-                    <div class="settings-row">
-                        <button id="reset-max-score">Reset Max Score</button>
+                        <span>Reset Max Score</span>
+                        <button id="reset-max-score">Reset</button>
                     </div>
                 </div>
             </div>
@@ -57,14 +52,13 @@
             
             <div class="button-board">
                 <button id="play" class="button">
-                    <i class="fa-solid fa-play"></i>
-                    <!-- <span>&#11208;</span> -->
+                    <span>&#11208;</span>
                 </button>
                 <button id="pause" class="button" style="display: none;">
-                    <i class="fa-solid fa-pause"></i>
+                    <span>&#x23F8;</span>
                 </button>
                 <button id="reset" class="button" style="display: none;">
-                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>&#x23F9;</span>
                 </button>
             </div>
         </div>
