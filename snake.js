@@ -203,13 +203,19 @@ function updateScore() {
 
 function toggleSettings() {
     let settingsElem = document.getElementById("settings");
-
-    if (settingsElem.style.display == "none") {
-        settingsElem.style.display = "block";
+    
+    if (settingsElem.style.display == "" || settingsElem.style.display == "none") {
         displayContainerElem.style.display = "none";
-    } else {
+        settingsElem.style.display = "block";
+
+    } else if (settingsElem.style.display == "block") {
         settingsElem.style.display = "none";
         displayContainerElem.style.display = "block";
+    } else {
+        console.warn(
+            "Settings toggle no working:" + 
+            "Unknown value has set to 'display' property of element with id 'settings'"
+        )
     }
 }
 
@@ -230,8 +236,8 @@ resetMaxScoreButton.addEventListener("click", resetMaxScore);
 
 // Key Bindings
 window.onkeydown = function (key) {
-    
-    if (isPlaying && isPaused || !isPlaying)  {
+
+    if (isPlaying && isPaused || !isPlaying) {
         console.log(key.keyCode)
         if (key.keyCode == 32) play(); // Space Bar
         if (key.keyCode == 82) reset(); // "R" key
