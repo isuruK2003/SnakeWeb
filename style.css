@@ -118,10 +118,11 @@ input[type="number"]:focus {
 /* A food pixel in the pixel grid */
 
 .food {
-    background-color: #86420a;
+    background-color: #d2af16;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+    border-radius: 50%;
 }
 
 /* A display container that holds splash screen and the game display */
