@@ -258,3 +258,9 @@ input[type="number"]:focus {
 .settings button:hover {
     background-color: #333;
 }
+
+.icon-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
