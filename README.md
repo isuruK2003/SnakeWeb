@@ -28,7 +28,3 @@ You can play the game [here](https://isuruk2003.github.io/SnakeWeb/).
     cd SnakeWeb
     ```
 3. Open `index.html` in your web browser.
-
-## License
-
-This project is licensed under the MIT License.
